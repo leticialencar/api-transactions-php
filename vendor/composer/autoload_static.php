@@ -17,6 +17,7 @@ class ComposerStaticInit72f12453a35a612dd9af060b3b03391e
         'S' => 
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
+            'Src\\' => 4,
             'Slim\\Psr7\\' => 10,
             'Slim\\' => 5,
         ),
@@ -50,6 +51,10 @@ class ComposerStaticInit72f12453a35a612dd9af060b3b03391e
         'Symfony\\Polyfill\\Php80\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Src\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Slim\\Psr7\\' => 
         array (
