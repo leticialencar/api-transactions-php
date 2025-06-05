@@ -98,5 +98,36 @@ class TransacaoController {
         $dao->excluirTodas();
         return $response->withStatus(200);
     }
-    
+
+    public function getEstatistica(Request $request, Response $response) {
+        $dao = new TransacaoDAO();
+        $transacoes = $dao->buscarUltimos60s();
+
+        $count = count($transacoes);
+        $sum = 0;
+        $min = null;
+        $max = null;
+
+        foreach ($transacoes as $t) {
+            $v = floatval($t['valor']);
+            $sum += $v;
+            if ($min === null || $v < $min) $min = $v;
+            if ($max === null || $v > $max) $max = $v;
+        }
+
+        $avg = $count > 0 ? $sum / $count : 0;
+        $min = $min ?? 0;
+        $max = $max ?? 0;
+
+        $stats = [
+            'count' => $count,
+            'sum' => $sum,
+            'avg' => $avg,
+            'min' => $min,
+            'max' => $max
+        ];
+
+        $response->getBody()->write(json_encode($stats));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

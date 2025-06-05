@@ -45,5 +45,9 @@ class TransacaoDAO {
         return $stmt->execute();
     }
 
-    
+    public function buscarUltimos60s() {
+        $stmt = $this->db->prepare("SELECT * FROM transacao WHERE dataHora >= DATE_SUB(NOW(), INTERVAL 60 SECOND)");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
