@@ -32,7 +32,11 @@ class TransacaoController {
             return $response->withStatus(422);
         }
 
-        if (!is_numeric($valor) || $valor < 0) {
+        if (!is_int($valor) && !is_float($valor)) {
+            return $response->withStatus(422);
+        }
+
+        if ($valor < 0) {
             return $response->withStatus(422);
         }
 
