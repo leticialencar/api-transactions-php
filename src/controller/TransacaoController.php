@@ -36,12 +36,15 @@ class TransacaoController {
             return $response->withStatus(422);
         }
 
-        $data = \DateTime::createFromFormat('Y-m-d H:i:s', $dataHora);
+        $timezone = new \DateTimeZone('America/Fortaleza');
+
+        $data = \DateTime::createFromFormat('Y-m-d H:i:s', $dataHora, $timezone);
         if (!$data || $data->format('Y-m-d H:i:s') !== $dataHora) {
             return $response->withStatus(422); 
         }
 
-        $agora = new \DateTime();
+        $agora = new \DateTime('now', $timezone);
+
         if ($data > $agora) {
             return $response->withStatus(422);
         }
