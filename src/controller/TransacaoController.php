@@ -63,4 +63,23 @@ class TransacaoController {
             return $response->withStatus(404);
         }
     }
+
+    public function getTransacao(Request $request, Response $response, $args) {
+        $dao = new TransacaoDAO();
+        $transacao = $dao->buscarPorId($args['id']);
+
+        if (!$transacao) {
+            return $response->withStatus(404);
+        }
+
+        $data = [
+            'id' => $transacao->getId(),
+            'valor' => (float) $transacao->getValor(),
+            'dataHora' => $transacao->getDataHora(),
+        ];
+
+        $response->getBody()->write(json_encode($data));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    
 }

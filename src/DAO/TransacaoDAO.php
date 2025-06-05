@@ -33,4 +33,15 @@ class TransacaoDAO {
         $transacao->setDataHora($row['dataHora']);
         return $transacao;
     }
+
+    public function excluirPorId($id) {
+        $stmt = $this->db->prepare("DELETE FROM transacao WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->rowCount() > 0;
+    }
+
+    public function excluirTodas() {
+        $stmt = $this->db->prepare("DELETE FROM transacao");
+        return $stmt->execute();
+    }
 }
