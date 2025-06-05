@@ -81,5 +81,22 @@ class TransacaoController {
         $response->getBody()->write(json_encode($data));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function deleteTransacaoId(Request $request, Response $response, $args) {
+        $dao = new TransacaoDAO();
+
+        $excluido = $dao->excluirPorId($args['id']);
+        if ($excluido) {
+            return $response->withStatus(200);
+        } else {
+            return $response->withStatus(404);
+        }
+    }
+
+    public function deleteTransacoes(Request $request, Response $response) {
+        $dao = new TransacaoDAO();
+        $dao->excluirTodas();
+        return $response->withStatus(200);
+    }
     
 }

@@ -44,4 +44,6 @@ class TransacaoDAO {
         $stmt = $this->db->prepare("DELETE FROM transacao");
         return $stmt->execute();
     }
+
+    
 }
