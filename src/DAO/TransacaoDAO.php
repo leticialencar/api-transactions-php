@@ -20,4 +20,17 @@ class TransacaoDAO {
             $transacao->getDataHora()
         ]);
     }
+
+    public function buscarPorId($id) {
+        $stmt = $this->db->prepare("SELECT * FROM transacao WHERE id = ?");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) return null;
+
+        $transacao = new Transacao();
+        $transacao->setId($row['id']);
+        $transacao->setValor($row['valor']);
+        $transacao->setDataHora($row['dataHora']);
+        return $transacao;
+    }
 }
